@@ -55,7 +55,6 @@ bookings where the highest number of tickets was booked on a single day. It is i
 Therefore, we can see a similar trend in the total revenue earned by the company throughout the analyzed time period. These findings suggest that further exploration of the factors contributing to the peak
 in ticket bookings may be beneficial for increasing overall revenue and optimizing operational strategies.
 
- 
 **Figure 1*
 We were able to generate a bar graph to graphically compare the data after completing computations for the average cost associated with different fare conditions for each aircraft. 
 Figure 3 displays data for three types of fares: business, economy, and comfort. It's worth mentioning that the comfort class is available on only one aircraft, the 773. Conversely, 
@@ -127,6 +126,350 @@ prices may deter people from purchasing tickets for those specific aircraft. Est
 
 Moreover, increasing occupancy rates should not compromise consumer satisfaction or safety standards. Airlines must strike a balance between the imperative for profit and the importance of delivering high-quality service while upholding stringent safety regulations. By adopting a data-driven approach to revenue analysis and optimization, airlines can potentially achieve long-term success in a highly competitive industry.
 
+
+
+Solution :
+
+Output :
+Connection to the database was successful.
+List of tables present in the database:
+aircrafts_data
+airports_data
+boarding_passes
+bookings
+flights
+seats
+ticket_flights
+tickets
+
+aircrafts_data
+  aircraft_code                                              model  range
+0           773    {"en": "Boeing 777-300", "ru": "Боинг 777-300"}  11100
+1           763    {"en": "Boeing 767-300", "ru": "Боинг 767-300"}   7900
+2           SU9  {"en": "Sukhoi Superjet-100", "ru": "Сухой Суп...   3000
+3           320  {"en": "Airbus A320-200", "ru": "Аэробус A320-...   5700
+4           321  {"en": "Airbus A321-200", "ru": "Аэробус A321-...   5600
+5           319  {"en": "Airbus A319-100", "ru": "Аэробус A319-...   6700
+6           733    {"en": "Boeing 737-300", "ru": "Боинг 737-300"}   4200
+7           CN1  {"en": "Cessna 208 Caravan", "ru": "Сессна 208...   1200
+8           CR2  {"en": "Bombardier CRJ-200", "ru": "Бомбардье ...   2700
+
+...............................................................................................
+
+
+airports_data
+    airport_code  ...          timezone
+0            YKS  ...      Asia/Yakutsk
+1            MJZ  ...      Asia/Yakutsk
+2            KHV  ...  Asia/Vladivostok
+3            PKC  ...    Asia/Kamchatka
+4            UUS  ...     Asia/Sakhalin
+..           ...  ...               ...
+99           MMK  ...     Europe/Moscow
+100          ABA  ...  Asia/Krasnoyarsk
+101          BAX  ...  Asia/Krasnoyarsk
+102          AAQ  ...     Europe/Moscow
+103          CNN  ...      Asia/Yakutsk
+
+[104 rows x 5 columns]
+
+...............................................................................................
+
+
+boarding_passes
+            ticket_no  flight_id  boarding_no seat_no
+0       0005435212351      30625            1      2D
+1       0005435212386      30625            2      3G
+2       0005435212381      30625            3      4H
+3       0005432211370      30625            4      5D
+4       0005435212357      30625            5     11A
+...               ...        ...          ...     ...
+579681  0005434302871      19945           85     20F
+579682  0005432892791      19945           86     21C
+579683  0005434302869      19945           87     20E
+579684  0005432802476      19945           88     21F
+579685  0005432802482      19945           89     21E
+
+[579686 rows x 4 columns]
+
+...............................................................................................
+
+
+bookings
+       book_ref               book_date  total_amount
+0        00000F  2017-07-05 03:12:00+03        265700
+1        000012  2017-07-14 09:02:00+03         37900
+2        000068  2017-08-15 14:27:00+03         18100
+3        000181  2017-08-10 13:28:00+03        131800
+4        0002D8  2017-08-07 21:40:00+03         23600
+...         ...                     ...           ...
+262783   FFFEF3  2017-07-17 07:23:00+03         56000
+262784   FFFF2C  2017-08-08 05:55:00+03         10800
+262785   FFFF43  2017-07-20 20:42:00+03         78500
+262786   FFFFA8  2017-08-08 04:45:00+03         28800
+262787   FFFFF7  2017-07-01 22:12:00+03         73600
+
+[262788 rows x 3 columns]
+
+...............................................................................................
+
+
+flights
+       flight_id flight_no  ...        actual_departure          actual_arrival
+0           1185    PG0134  ...                      \N                      \N
+1           3979    PG0052  ...                      \N                      \N
+2           4739    PG0561  ...                      \N                      \N
+3           5502    PG0529  ...                      \N                      \N
+4           6938    PG0461  ...                      \N                      \N
+...          ...       ...  ...                     ...                     ...
+33116      33117    PG0063  ...  2017-08-02 19:25:00+03  2017-08-02 20:10:00+03
+33117      33118    PG0063  ...  2017-07-28 19:30:00+03  2017-07-28 20:15:00+03
+33118      33119    PG0063  ...                      \N                      \N
+33119      33120    PG0063  ...  2017-08-01 19:26:00+03  2017-08-01 20:12:00+03
+33120      33121    PG0063  ...                      \N                      \N
+
+[33121 rows x 10 columns]
+
+...............................................................................................
+
+
+seats
+     aircraft_code seat_no fare_conditions
+0              319      2A        Business
+1              319      2C        Business
+2              319      2D        Business
+3              319      2F        Business
+4              319      3A        Business
+...            ...     ...             ...
+1334           773     48H         Economy
+1335           773     48K         Economy
+1336           773     49A         Economy
+1337           773     49C         Economy
+1338           773     49D         Economy
+
+[1339 rows x 3 columns]
+
+...............................................................................................
+
+
+ticket_flights
+             ticket_no  flight_id fare_conditions  amount
+0        0005432159776      30625        Business   42100
+1        0005435212351      30625        Business   42100
+2        0005435212386      30625        Business   42100
+3        0005435212381      30625        Business   42100
+4        0005432211370      30625        Business   42100
+...                ...        ...             ...     ...
+1045721  0005435097522      32094         Economy    5200
+1045722  0005435097521      32094         Economy    5200
+1045723  0005435104384      32094         Economy    5200
+1045724  0005435104352      32094         Economy    5200
+1045725  0005435104389      32094         Economy    5200
+
+[1045726 rows x 4 columns]
+
+...............................................................................................
+
+
+tickets
+            ticket_no book_ref passenger_id
+0       0005432000987   06B046  8149 604011
+1       0005432000988   06B046  8499 420203
+2       0005432000989   E170C3  1011 752484
+3       0005432000990   E170C3  4849 400049
+4       0005432000991   F313DD  6615 976589
+...               ...      ...          ...
+366728  0005435999869   D730BA  0474 690760
+366729  0005435999870   D730BA  6535 751108
+366730  0005435999871   A1AD46  1596 156448
+366731  0005435999872   7B6A53  9374 822707
+366732  0005435999873   7B6A53  7380 075822
+
+[366733 rows x 3 columns]
+
+ table: aircrafts_data
+('aircraft_code', 'character(3)')
+('model', 'jsonb')
+('range', 'integer')
+
+ table: airports_data
+('airport_code', 'character(3)')
+('airport_name', 'jsonb')
+('city', 'jsonb')
+('coordinates', 'point')
+('timezone', 'text')
+
+ table: boarding_passes
+('ticket_no', 'character(13)')
+('flight_id', 'integer')
+('boarding_no', 'integer')
+('seat_no', 'character varying(4)')
+
+ table: bookings
+('book_ref', 'character(6)')
+('book_date', 'timestamp with time zone')
+('total_amount', 'numeric(10,2)')
+
+ table: flights
+('flight_id', 'integer')
+('flight_no', 'character(6)')
+('scheduled_departure', 'timestamp with time zone')
+('scheduled_arrival', 'timestamp with time zone')
+('departure_airport', 'character(3)')
+('arrival_airport', 'character(3)')
+('status', 'character varying(20)')
+('aircraft_code', 'character(3)')
+('actual_departure', 'timestamp with time zone')
+('actual_arrival', 'timestamp with time zone')
+
+ table: seats
+('aircraft_code', 'character(3)')
+('seat_no', 'character varying(4)')
+('fare_conditions', 'character varying(10)')
+
+ table: ticket_flights
+('ticket_no', 'character(13)')
+('flight_id', 'integer')
+('fare_conditions', 'character varying(10)')
+('amount', 'numeric(10,2)')
+
+ table: tickets
+('ticket_no', 'character(13)')
+('book_ref', 'character(6)')
+('passenger_id', 'character varying(20)')
+
+Table: aircrafts_data
+aircraft_code    0
+model            0
+range            0
+dtype: int64
+
+Table: airports_data
+airport_code    0
+airport_name    0
+city            0
+coordinates     0
+timezone        0
+dtype: int64
+
+Table: boarding_passes
+ticket_no      0
+flight_id      0
+boarding_no    0
+seat_no        0
+dtype: int64
+
+Table: bookings
+book_ref        0
+book_date       0
+total_amount    0
+dtype: int64
+
+Table: flights
+flight_id              0
+flight_no              0
+scheduled_departure    0
+scheduled_arrival      0
+departure_airport      0
+arrival_airport        0
+status                 0
+aircraft_code          0
+actual_departure       0
+actual_arrival         0
+dtype: int64
+
+Table: seats
+aircraft_code      0
+seat_no            0
+fare_conditions    0
+dtype: int64
+
+Table: ticket_flights
+ticket_no          0
+flight_id          0
+fare_conditions    0
+amount             0
+dtype: int64
+
+Table: tickets
+ticket_no       0
+book_ref        0
+passenger_id    0
+dtype: int64
+
+Basic Analysis
+
+How many Planes have more than 100 seats?
+
+  aircraft_code  num_seats
+0           319        116
+1           320        140
+2           321        170
+3           733        130
+4           763        222
+5           773        402
+6           CN1         12
+7           CR2         50
+8           SU9         97
+
+How the no of tickets booked with the time
+
+calculate the average charges for each aircraft with different fare conditions
+
+   fare_conditions aircraft_code    avg(amount)
+0         Business           319  113550.557703
+1          Economy           319   38311.402347
+2         Business           321   34435.662664
+3          Economy           321   11534.974764
+4         Business           733   41865.626175
+5          Economy           733   13985.152000
+6         Business           763   82839.842866
+7          Economy           763   27594.721829
+8         Business           773   57779.909435
+9          Comfort           773   32740.552889
+10         Economy           773   19265.225693
+11         Economy           CN1    6568.552345
+12         Economy           CR2   13207.661102
+13        Business           SU9   33487.849829
+14         Economy           SU9   11220.183400
+
+Analyzing occupancy rate
+
+For each aircraft, calculate total revenue per year and the average revenue per ticket
+
+  aircraft_code  tickets_count  total_revenue  avg_revenue_per_ticket
+0           319          52853     2706163100                   51201
+1           321         107129     1638164100                   15291
+2           733          86102     1426552100                   16568
+3           763         124774     4371277100                   35033
+4           773         144376     3431205500                   23765
+5           CN1          14672       96373800                    6568
+6           CR2         150122     1982760500                   13207
+7           SU9         365698     5114484700                   13985
+
+Calculate the average occupancy per aircraft.
+
+  aircraft_code  booked_seats  num_seats  occupancy_rate
+0           319     53.583181        116        0.461924
+1           321     88.809231        170        0.522407
+2           733     80.255462        130        0.617350
+3           763    113.937294        222        0.513231
+4           773    264.925806        402        0.659019
+5           CN1      6.004431         12        0.500369
+6           CR2     21.482847         50        0.429657
+7           SU9     56.812113         97        0.585692
+
+calculate how much the total annual turnover could increase by giving all aircraft a 10% higher occupancy rate
+
+  aircraft_code  total_revenue
+0           319     2706163100
+1           321     1638164100
+2           733     1426552100
+3           763     4371277100
+4           773     3431205500
+5           CN1       96373800
+6           CR2     1982760500
+7           SU9     5114484700
 
 
 
